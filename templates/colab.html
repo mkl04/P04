@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Cadastro de Colaboradores</h1>
+</br>
+
+<form>
+    <div class="form-group" > <!-- Full Name -->
+        <label for="full_name_id" class="control-label">Nome</label>
+        <input type="text" class="form-control" id="full_name_id" name="full_name" placeholder="">
+    </div>    
+
+    <div class="form-group"> <!-- Slack id -->
+        <label for="street1_id" class="control-label">Slack id</label>
+        <input type="text" class="form-control" id="street1_id" name="street1" placeholder="">
+    </div>
+
+    <div class="form-group"> <!-- E-mail -->
+        <label for="email_" class="control-label">Slack id</label>
+        <input type="text" class="form-control" id="email_" name="email_" placeholder="">
+    </div>
+                                              
+    <div class="form-group"> <!-- Nivel -->
+        <label for="state_id" class="control-label">Nivel</label>
+        <select class="form-control" id="state_id">
+            <option value="ES">Estagiario</option>
+            <option value="DR">Aluno</option>
+            <option value="DR">Desenvolvedor 1</option>
+            <option value="DR">Desenvolvedor 2</option>
+            <option value="DR">Mestre</option>
+            <option value="DR">Doutor</option>
+            <option value="DR">Coordenador</option>
+        </select>                    
+    </div>
+
+    <div class="form-group"> <!-- Turma -->
+        <label for="state_id" class="control-label">Turma</label>
+        <select class="form-control" id="state_id">
+            <option value="201">2020-I</option>
+            <option value="192">2019-II</option>
+            <option value="191">2019-I</option>
+        </select>                    
+    </div>
+    
+    <div class="form-group"> <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Enviar informação</button>
+    </div>     
+    
+</form>
+
+{% endblock %}

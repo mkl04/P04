@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+ 
+            <div class="jumbotron p-3">
+ 
+               <h2><button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add measurement</button></h2>
+
+               <table class="table">
+                   <thead class="thead-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Petal Length</th>
+                        <th>Petal Width</th>
+                        <th>Prediction</th>
+                        <th>Category</th>
+                        <th> </th>
+                    </tr>
+
+                    {% for row in employees %}
+                    <tr>
+                        <th>{{row.id}}</th>
+                        <th>{{row.petal_length}}</th>
+                        <th>{{row.petal_width}}</th>
+                        <th>{{row.pred}}</th>
+                        <th>{{dict_aux[row.pred]}}</th>
+                        <th>
+                            <a href="/update/{{row.id}}" class="btn btn-warning bnt-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="/delete/{{row.id}}" class="btn btn-danger bnt-xs" onclick="return confirm('Are you sure you want to remove it') ">Remove</a>
+                        </th>
+                    </tr>
+
+            <!-- Modal Edit Employee-->
+
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h2 class="modal-title" style="color:black">Update Register</h2>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('update')}}" method="POST">
+
+               <div class="form-group">
+                  <label style="color:black">Petal Length:</label>
+                  <input type="hidden"  name="id" value="{{row.id}}">
+                  <input type="float" class="form-control" name="petal_length" value="{{row.petal_length}}">
+               </div>
+
+               <div class="form-group">
+                  <label style="color:black">Petal Width:</label>
+                  <input type="float" class="form-control" name="petal_width" value="{{row.petal_width}}">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+                   {% endfor %}
+                   </thead>
+                   
+               </table>
+            </div>
+
+
+            <!-- Modal Add Employee-->
+
+<div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h2 class="modal-title" style="color:black">Register</h2>
+         </div>
+
+         <div class="modal-body">
+            <form action="/insert" method="POST">
+
+               <div class="form-group">
+                  <label style="color:black">Petal Length:</label>
+                  <input type="float" class="form-control" name="petal_length" required="1" >
+               </div>
+
+               <div class="form-group">
+                  <label style="color:black">Petal Width:</label>
+                  <input type="float" class="form-control" name="petal_width" required="1">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Predict</button>
+               </div>
+
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+        </div>
+    </div>
+</div>
+   
+
+{% endblock %}

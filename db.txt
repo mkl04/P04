@@ -1,0 +1,6 @@
+CREATE TABLE register (
+id SERIAL PRIMARY KEY,
+petal_length float,
+petal_width float,
+pred INT
+);
