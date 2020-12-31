@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/p04' #p04
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/p04'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -15,8 +15,8 @@ dict_label = {0: 'Setosa',
 
 model = pickle.load(open('res/model.pkl', 'rb'))
 
-class Replier(db.Model):
-    __tablename__ = 'register' #register
+class Register(db.Model):
+    __tablename__ = 'register'
     id = db.Column(db.Integer, primary_key=True)
     petal_length = db.Column(db.Float)
     petal_width = db.Column(db.Float)
@@ -39,7 +39,7 @@ def home():
 
 @app.route('/inference')
 def infere():
-    all_data = Replier.query.all()
+    all_data = Register.query.all()
     return render_template('inference.html', employees = all_data, dict_aux = dict_label)
 
 @app.route('/insert', methods=['POST'])
@@ -53,7 +53,7 @@ def insert():
         m = np.array([[pl,pw]])
         inf = model.predict(m)[0]
 
-        replier = Replier(pl, pw, int(inf))
+        replier = Register(pl, pw, int(inf))
         db.session.add(replier)
         try:
             db.session.commit()
@@ -65,7 +65,7 @@ def insert():
 
 @app.route('/delete/<id>/', methods = ['GET', 'POST'])
 def delete(id):
-    my_data = Replier.query.get(id)
+    my_data = Register.query.get(id)
     db.session.delete(my_data)
     db.session.commit()
 
@@ -75,7 +75,7 @@ def delete(id):
 def update():
  
     if request.method == 'POST':
-        my_data = Replier.query.get(request.form.get('id'))
+        my_data = Register.query.get(request.form.get('id'))
  
         my_data.petal_length = request.form['petal_length']
         my_data.petal_width = request.form['petal_width']
